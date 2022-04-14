@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReservationEvent index{% endblock %}
+
+{% block body %}
+    <h1>ReservationEvent index</h1>
+
+    <table  class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Idevent</th>
+                <th>Idclient</th>
+               <!-- <td>actions</td>-->
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_event in reservation_events %}
+            <tr>
+                <td>{{ reservation_event.id }}</td>
+                <td>{{ reservation_event.idevent }}</td>
+                <td>{{ reservation_event.idclient }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_show', {'id': reservation_event.id}) }}"><button style="background-color: #18ce0f">show</button></a>
+                    <a href="{{ path('app_reservation_edit', {'id': reservation_event.id}) }}"><button style="background-color: #9f141a">Edit</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reservation_new') }}"><button style="background-color: #0a58ca">Create new</button></a>
+{% endblock %}
