@@ -1,0 +1,11 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+{% block body %}
+    <h1 style="background-color: #943bea"><center>Create new Evenement</center></h1>
+
+    {{ include('evenement/_form.html.twig') }}
+
+    <a href="{{ path('app_evenement_back') }}">&emsp;<button style="background-color: #ACFF65" class=pull-left>back to list</button></a>
+{% endblock %}

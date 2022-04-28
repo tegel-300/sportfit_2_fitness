@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement{% endblock %}
+
+{% block body %}
+
+
+    <table class="table">
+        <tbody>
+
+
+
+
+            <h2><td><center><i><b>{{ evenement.nom }}</b></i></center></td></h2>
+
+
+
+            <tr>
+                <th>Date</th>
+                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NbrPersonnes</th>
+                <td>{{ evenement.nbrPersonnes }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ evenement.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ evenement.description }}</td>
+            </tr>
+            <tr>
+                <div class="content">
+                   <img src="{{ asset('/image/2.jpg')|imagine_filter('evenement') }}" alt="2">
+                </div>
+            </tr>
+        </tbody>
+    </table>
+    <div class=" grix xs2 sm3 gutter-0 card">
+        <div class="col-xs2 col-sm3">
+            <h2>Liste des commentaires</h2>
+            {% for comment in evenement.comments %}
+            <p>publié par {{ comment.email }} le {{ comment.createdAt|date("d/m/y h:i") }}</p>
+                <div>{{ comment.content|raw }}</div>
+                <p><a href="#ajout-commentaire" data-reply data-id="{{ comment.id }}" class="btn btn-primary press">Répondre</a></p>
+            {% endfor %}
+        </div>
+        <div class="col-xs2 col-sm3" id="ajout-commentaire">
+            <h2>ajouter un commentaire</h2>
+            {{ form(commentForm) }}
+        </div>
+
+    </div>
+
+    <a href="{{ path('app_evenement_index') }}"><button style="background-color: #721c24">back to list</button></a>
+
+    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">&emsp;&emsp;&emsp;&emsp;&emsp;<button>&nbsp;ADD&nbsp;</button></a>
+{% endblock %}
+  {% block javascripts %}
+
+    <script>
+        window.onlaod = ()=>{
+//on met un écouteur d'évènementsur touts les bouttons$
+        document.querySelectorAll("[data-reply]").forEach(element => {
+            element.addEventListener("click", function() {
+                document.querySelector("#comments_parentid").value = this.dataset.id;
+
+            })
+
+        })
+    }
+    </script>-->
+    {% endblock %}
+

@@ -1,0 +1,80 @@
+{% extends 'base-back.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+      integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" >
+{% endblock %}
+{% block body %}
+    <h1>evenement  les plus likes</h1>
+    <canvas id="evenement" width="400" height="100"></canvas>
+    <h1>evenement les moins likes</h1>
+    <canvas id="evenementmoins" width="400" height="100"></canvas>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+
+    <script>
+        let evenement = document.querySelector("#evenement")
+        let graph = new Chart(evenement, {
+            type: "line",
+            data: {
+                labels: {{ nom|raw }},
+                datasets: [{
+                    label:'Evenement les plus aimés',
+                    data: {{like|raw }},
+                    borderColor: 'red',
+                    backgroundColor:['red','orange','yellow','purple','blue','green']
+
+                }]
+                    // {
+                    //     label: 'Nombre de de"j\'aime"',
+                    //     data:[14,2,5,8,7,22],
+                    //     backgroundColor:['lightred','gold','lightyellow','pink','lightblue','lightgreen']
+                    //
+                    // }]
+
+            },
+             options: {
+                title: {
+                    display: true,
+                    text:'graphe des likes'},
+                legend:{
+                    position:'bottom'
+                }
+            //     scales: {
+            //         yAxes: [{
+            //             ticks: {
+            //                 beginAtZero: true
+            //             }
+            //         }]
+            //     }
+            }
+
+
+        })
+        let evenementmoins = document.querySelector("#evenementmoins")
+        let categGraph1 = new Chart(evenementmoins, {
+            type: "pie",
+            data: {
+                labels: {{ nom|raw }},
+                datasets: [{
+                    label: "Les Evenement les moins aimés",
+                    data: {{ unlike|raw }},
+                    backgroundColor: ["red", "green"]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'graphe des likes'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        })
+
+    </script>
+{% endblock %}
+
