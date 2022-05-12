@@ -38,22 +38,22 @@ class EvenementController extends AbstractController
         ]);
     }
     /**
-     * @Route("/calcul", name="statistique")
+     * @Route("/stat", name="statistique")
      */
     public function sta(EvenementRepository $evenementRepository)
     {
         $evenement = $evenementRepository->findAll();
         $nom = [];
-        $like = [];
+        $likes = [];
         $unlike = [];
 
         foreach($evenement as $evenement){
             $nom[] = $evenement->getNom();
-            $like[] = $evenement->getLike();
+            $likes[] = $evenement->getLikes();
             $unlike[] = $evenement->getUnlike();
         }
         return $this->render('evenement/users_stats.html.twig',[
-            'nom' => json_encode($nom), 'like' => json_encode($like),
+            'nom' => json_encode($nom), 'likes' => json_encode($likes),
             'unlike' => json_encode($unlike)
         ]);
 
@@ -70,9 +70,19 @@ class EvenementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get("image")->getData();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('images_directory'),$fileName
+            );
+            $evenement->setImage($fileName);
+//            $evenement->setDate(new \DateTime());
+
             $evenementRepository->add($evenement);
             return $this->redirectToRoute('app_evenement_back', [], Response::HTTP_SEE_OTHER);
+
         }
+
 
         return $this->render('evenement/new.html.twig', [
             'evenement' => $evenement,
@@ -193,14 +203,14 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/like/{id}", name="addLike")
+     * @Route("/likes/{id}", name="addLike")
      */
-    public function addLike($id){
+    public function addLikes($id){
 
         $repository= $this->getDoctrine()->getRepository(Evenement::class);
         $evenement = $repository->find($id);
 
-        $evenement->setlike($evenement->getlike() + 1);
+        $evenement->setlikes($evenement->getLikes() + 1);
 
         $manager = $this->getDoctrine()->getManager();
         $manager ->persist($evenement);
@@ -229,6 +239,18 @@ class EvenementController extends AbstractController
             'id' => $evenement->getId()
         ]);
     }
+
+//    /**
+//     * @Route("TrierParDateDESC", name="Trierr")
+//     */
+//    public function TrierParNom(EvenementRepository $repository ): Response
+//    {
+//        $am = $repository->trier();
+//
+//        return $this->render('evenement/index.html.twig', [
+//            'evenement' => $am,
+//        ]);
+   // }
 
 
 }

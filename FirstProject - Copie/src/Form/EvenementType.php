@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Evenement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,8 @@ class EvenementType extends AbstractType
             ->add('nbrPersonnes')
             ->add('categorie')
             ->add('description')
-            ->add('image')
+            //ajout d'image
+            ->add('image',FileType::class, array('data_class' =>null))
         ;
     }
 

@@ -4,9 +4,10 @@
       integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" >
 {% endblock %}
 {% block body %}
-    <h1>evenement  les plus likes</h1>
+    <h1 style="background-color: #ACFF65"><center>evenement  les plus Aimée</center></h1>
     <canvas id="evenement" width="400" height="100"></canvas>
-    <h1>evenement les moins likes</h1>
+
+    <h1 style="background-color: #6c757d"><center>evenement les moins Aimés</center></h1>
     <canvas id="evenementmoins" width="400" height="100"></canvas>
 {% endblock %}
 
@@ -17,14 +18,14 @@
     <script>
         let evenement = document.querySelector("#evenement")
         let graph = new Chart(evenement, {
-            type: "line",
+            type: "polarArea",
             data: {
                 labels: {{ nom|raw }},
                 datasets: [{
                     label:'Evenement les plus aimés',
-                    data: {{like|raw }},
+                    data: {{likes|raw }},
                     borderColor: 'red',
-                    backgroundColor:['red','orange','yellow','purple','blue','green']
+                    backgroundColor:['green','blue','yellow','purple','red','orange']
 
                 }]
                     // {
@@ -61,13 +62,13 @@
                 datasets: [{
                     label: "Les Evenement les moins aimés",
                     data: {{ unlike|raw }},
-                    backgroundColor: ["red", "green"]
+                    backgroundColor: ['red', 'green','yellow','purple','blue']
                 }]
             },
             options: {
                 title: {
                     display: true,
-                    text: 'graphe des likes'
+                    text: 'graphe des Unlikes'
                 },
                 legend: {
                     position: 'bottom'

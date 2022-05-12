@@ -4,8 +4,8 @@
 
 {% block body %}
 
-
-    <table class="table">
+    <center>
+    <table class="table" style="background-color: #062c33">
         <tbody>
 
 
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <div class="content">
-                   <img src="{{ asset('/image/2.jpg')|imagine_filter('evenement') }}" alt="2">
+                   <img style="width: 25%" src="{{ asset('img/'~ evenement.image)}}">
                 </div>
             </tr>
         </tbody>
@@ -44,6 +44,7 @@
             {% for comment in evenement.comments %}
             <p>publié par {{ comment.email }} le {{ comment.createdAt|date("d/m/y h:i") }}</p>
                 <div>{{ comment.content|raw }}</div>
+                <br>
                 <p><a href="#ajout-commentaire" data-reply data-id="{{ comment.id }}" class="btn btn-primary press">Répondre</a></p>
             {% endfor %}
         </div>
@@ -57,6 +58,7 @@
     <a href="{{ path('app_evenement_index') }}"><button style="background-color: #721c24">back to list</button></a>
 
     <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">&emsp;&emsp;&emsp;&emsp;&emsp;<button>&nbsp;ADD&nbsp;</button></a>
+    </center>
 {% endblock %}
   {% block javascripts %}
 

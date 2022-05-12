@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Evenement
@@ -21,6 +22,7 @@ class Evenement
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -35,6 +37,7 @@ class Evenement
      *  @Assert\NotBlank(message="champ obligatoire")
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @Groups("post:read")
      */
     private $nom;
 
@@ -42,6 +45,7 @@ class Evenement
      * @var \DateTime
      * @Assert\NotBlank(message="champ obligatoire")
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Groups("post:read")
      */
     private $date;
 
@@ -49,6 +53,8 @@ class Evenement
      * @var int
      * @Assert\NotBlank(message="champ obligatoire")
      * @ORM\Column(name="nbr_personnes", type="integer", nullable=false)
+     * @Groups("post:read")
+     *
      */
     private $nbrPersonnes;
 
@@ -56,6 +62,7 @@ class Evenement
      * @var string
      * @Assert\NotBlank(message="champ obligatoire")
      * @ORM\Column(name="categorie", type="string", length=255, nullable=false)
+     * @Groups("post:read")
      */
     private $categorie;
 
@@ -70,39 +77,42 @@ class Evenement
      * )
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Groups("post:read")
      */
     private $description;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Image", type="blob", length=65535, nullable=true)
+     * @ORM\Column(name="Image", type="string", length=256, nullable=false)
+     * @Groups("post:read")
      */
     private $image;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="Like", type="integer", nullable=true)
+     * @ORM\Column(name="Likes", type="integer", nullable=true)
+     * @Groups("post:read")
      */
-    private $like;
+    private $likes;
 
     /**
      * @var int
      *
      * @ORM\Column(name="Unlike", type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $unlike;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="annonces", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="annonces", orphanRemoval=true, )
+     *
      */
     private $comments;
 
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-    }
+
+
 
     public function getId(): ?int
     {
@@ -181,14 +191,14 @@ class Evenement
         return $this;
     }
 
-    public function getLike(): ?int
+    public function getLikes(): ?int
     {
-        return $this->like;
+        return $this->likes;
     }
 
-    public function setLike(int $like): self
+    public function setLikes(int $likes): self
     {
-        $this->like = $like;
+        $this->likes = $likes;
 
         return $this;
     }

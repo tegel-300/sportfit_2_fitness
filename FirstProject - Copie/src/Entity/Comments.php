@@ -24,14 +24,14 @@ class Comments
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text", length=0, nullable=True)
+     * @ORM\Column(name="content", type="text", length=256, nullable=True)
      */
     private $content;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="active", type="boolean", nullable=false)
+     * @ORM\Column(name="active", type="boolean", nullable=TRUE)
      */
     private $active;
 

@@ -13,13 +13,13 @@ liip_imagine:
             quality: 85
             filters:
                 scale:
-                    dim: [500,500]
+                    dim: [400,400]
 
         evenement:
             quality: 80
             filters:
                 upscale:
-                    min: [700,400]
+                    min: [900,800]
                 thumbnail:
                     size: [700,400]
                     mode: outbound

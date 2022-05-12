@@ -4,30 +4,43 @@
 
 {% block body %}
     <h1 style="background-color: #721c24"><center>Evenement</center></h1>
-<section class="evenement">
+
+<section class="evenement" style="background-color: #062c33" ><center>
+
     {% for evenement in evenements %}
-        <evenement>
+
+       <div class=" col-12 col-sn-6 col-lg-4 col-xl-3 evenement " >
+
+
             <h2>
                 {{ evenement.nom  }}
             </h2>
-            <div class="content">
-                {{ evenement.date | date('d/m/y') }}
-                Ayant pour proprietaire : {{ evenement.categorie }}
+{#            <div class="content">#}
+{#                {{ evenement.date | date('d/m/y') }}#}
+{#                </br>#}
+                <strong>Spécialité : </strong>{{ evenement.categorie }}
             </div>
-                <div class="content">
-                    <img src="{{ asset('/image/2.jpg')|imagine_filter('echelle') }}" alt="2">
+                <div class="content"   >
+                    <img style="width: 200px" src="{{ asset('img/'~ evenement.image)|  imagine_filter('echelle')}}">
+
                 </div>
-                <div class="content">
+                    <div class="content">
                     <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-primary">lire la suite</a>
-                    <a href="{{ path('addLike', {'id': evenement.id}) }}" class="btn btn-primary">J'aime : {{ evenement.like}}</a>
-                    <a href="{{ path('adddisLike', {'id': evenement.id}) }}" class="btn btn-primary">Je n'aime pas : {{ evenement.unlike}}</a>
+                        <a href="{{ path('addLike', {'id': evenement.id}) }}" class="btn btn-primary">J'aime : {{ evenement.likes}}</a>
+                        <a href="{{ path('adddisLike', {'id': evenement.id}) }}" class="btn btn-primary">Je n'aime pas : {{ evenement.unlike}}</a>
+
+
 
                    <!-- <a href="{ path('app_evenement_edit', {'id': evenement.id}) }}" class="btn btn-primary">Edit</a>-->
                 </div>
-        </evenement>
+
+
+        </div>
 
 
 
     {% endfor %}
+    </center>
 </section>
+
 {% endblock %}
